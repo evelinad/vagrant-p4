@@ -1,11 +1,16 @@
-  import 'dependencies.pp'
+  $base_packages = [
+    "git"
+  ]
+
+  package { $base_packages:
+    ensure => installed,
+  }
 
   notice("setting up the p4 environment, depending on your environment, this may take a while...")
 
   exec { "mkworkingdirectory":
-    command => "mkdir -p /p4",
+    command => "/bin/mkdir /p4",
     cwd     => "/",
-    path    => ["/bin", "/usr/bin"],
   }
 
   file { [
@@ -21,6 +26,6 @@
   }
 
   exec { "installp4factory":
-    command => "./install.sh",
+    command => "install.sh",
     cwd     => "/p4/p4factory",
   }
