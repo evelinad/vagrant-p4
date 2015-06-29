@@ -23,9 +23,19 @@
     command => "git clone https://github.com/p4lang/p4factory.git",
     cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
+    creates => "/p4/p4factory/install.sh",
+  }
+
+  file { [
+           "/p4/p4factory",
+         ]:
+    ensure => directory,
   }
 
   exec { "installp4factory":
-    command => "install.sh",
-    cwd     => "/p4/p4factory",
+    command => "/p4/p4factory/install.sh | sh",
+    cwd     => "/p4",
+    path    => ["/bin", "/usr/bin"],
+    creates => "/p4/p4factory/install.sh",
   }
+

@@ -1,5 +1,5 @@
 ---
-- os: puppetlabs/ubuntu-14.04-64-puppet
+- os: puppetlabs/ubuntu-12.04-64-puppet
   ip: 192.168.1.25
   hostname: p4switch
   ram: 512
