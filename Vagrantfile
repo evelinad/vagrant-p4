@@ -23,11 +23,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       config.vm.provider :virtualbox do |vb|
         vb.name = confs["hostname"]
         vb.memory = confs["ram"]
-        vb.cpu = confs["cpu"]
       end # vb
       config.vm.provision "puppet" do |puppet|
         puppet.working_directory = "/vagrant/puppet"
         puppet.manifests_path = "puppet/manifests"
+        puppet.manifest_file  = "p4node.pp"
+        puppet.options = "--verbose --debug"
       end # puppet
     end # confs
 end # config
