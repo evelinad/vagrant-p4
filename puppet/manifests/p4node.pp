@@ -36,6 +36,5 @@
     command => "/p4/p4factory/install.sh | sh",
     cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
-    creates => "/p4/p4factory/install.sh",
   }
 
