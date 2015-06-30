@@ -33,8 +33,7 @@
   }
 
   exec { "installp4factory":
-    command => "/p4/p4factory/install.sh | sh",
-    cwd     => "/p4",
+    command => "sh /p4/p4factory/install.sh",
+    cwd     => "/p4/p4factory",
     path    => ["/bin", "/usr/bin"],
   }
-
