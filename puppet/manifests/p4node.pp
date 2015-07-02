@@ -53,34 +53,68 @@
     ensure => installed,
   }
 
-  notice("setting up the p4 environment, depending on your environment, this may take a while...")
+  notice("Base dependencies successfully installed.")
 
-  exec { "mkworkingdirectory":
-    command => "/bin/mkdir /p4",
-    cwd     => "/",
-  }
+  notice("Upgrading thift")
 
-  file { [
-           "/p4",
-         ]:
-    ensure => directory,
-  }
-
-  exec { "clonep4factory":
-    command => "git clone https://github.com/p4lang/p4factory.git",
-    cwd     => "/p4",
+  exec { "upgrade_thrift":
+    command => "pip install --upgrade thrift",
     path    => ["/bin", "/usr/bin"],
-    creates => "/p4/p4factory/install.sh",
+  }
+
+  exec { "mkdirp4":
+    command => "/bin/mkdir -p /p4",
+    cwd     => "/",
+    path    => ["/bin", "/usr/bin"],
   }
 
   file { [
-           "/p4/p4factory",
+            "/p4",
          ]:
-    ensure => directory,
+    ensure  => directory,
   }
 
-  exec { "installp4factory":
-    command => "sh /p4/p4factory/install.sh",
-    cwd     => "/p4/p4factory",
+  notice("Installing high level interpreter and scapy...")
+
+  exec { "clonep4hlir":
+    command => "git clone https://github.com/p4lang/p4-hlir.git",
+    cwd     => "/",
+    path    => ["/bin", "/usr/bin"],
+    creates => "/p4/p4-hlir/setup.py",
+  }
+
+  exec { "installp4hlir":
+    command => "python setup.py install",
+    cwd     => "/p4/p4-hlir",
+    path    => ["/bin", "/usr/bin"],
+  }
+
+notice("Installing P4 dependency graph generator...")
+
+  exec { "clonep4cgraph":
+    command => "git clone https://github.com/p4lang/p4c-graphs.git",
+    cwd     => "/",
+    path    => ["/bin", "/usr/bin"],
+    creates => "/p4/p4c-graphs/setup.py",
+  }
+
+  exec { "installp4cgraph":
+    command => "python setup.py install",
+    cwd     => "/p4/p4c-graphs/",
+    path    => ["/bin", "/usr/bin"],
+  }
+
+  notice("Installing scapy vxlan...")
+
+    exec { "clonescapyvxlan":
+    command => "git clone https://github.com/p4lang/scapy-vxlan.git",
+    cwd     => "/",
+    path    => ["/bin", "/usr/bin"],
+    creates => "/p4/scapy-vxlan/setup.py",
+  }
+
+  exec { "installp4hlir":
+    command => "python setup.py install",
+    cwd     => "/p4/scapy-vxlan/",
     path    => ["/bin", "/usr/bin"],
   }
