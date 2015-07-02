@@ -113,7 +113,7 @@ notice("Installing P4 dependency graph generator...")
     creates => "/p4/scapy-vxlan/setup.py",
   }
 
-  exec { "installp4hlir":
+  exec { "installscapyvxlan":
     command => "python setup.py install",
     cwd     => "/p4/scapy-vxlan/",
     path    => ["/bin", "/usr/bin"],
