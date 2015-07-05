@@ -143,13 +143,13 @@ notice("Installing P4 dependency graph generator...")
   }
 
   case $autorun {
-    'no'    exec { "cloneonly":
+    'no' :  exec { "cloneonly":
               command => "git clone $softswitch",
               cwd     => "/p4",
               path    => ["/bin", "/usr/bin"],
               require => Package[$base_packages],
             }
-    'yes'   exec { "cloneandrun":
+    'yes' : exec { "cloneandrun":
               command => "git clone $softswitch",
               cwd     => "/p4",
               path    => ["/bin", "/usr/bin"],
