@@ -133,7 +133,7 @@ notice("Installing P4 dependency graph generator...")
 
     notice("Cloning p4factory...")
 
-    exec { "clonescapyvxlan":
+    exec { "clonep4factory":
     command => "git clone https://github.com/p4lang/p4factory.git",
     cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
