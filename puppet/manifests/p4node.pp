@@ -49,8 +49,14 @@
     "git"
   ]
 
+  exec { "aptupdate":
+    command => "apt-get update",
+    path    => ["/bin", "/usr/bin"],
+  }
+
   package { $base_packages:
     ensure  => [installed, latest],
+    require => Exec['aptupdate'],
   }
 
   notice("Base dependencies successfully installed.")
