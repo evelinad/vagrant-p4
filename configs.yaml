@@ -4,3 +4,4 @@
   hostname: p4switch
   ram: 512
   cpu: 1
+  softswitch: https://github.com/sniggel/p4-softswitch.git
