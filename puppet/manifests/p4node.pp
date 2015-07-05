@@ -87,12 +87,14 @@
     cwd     => "/",
     path    => ["/bin", "/usr/bin"],
     creates => "/p4/p4-hlir/setup.py",
+    require => Package[$base_packages],
   }
 
   exec { "installp4hlir":
     command => "python setup.py install",
     cwd     => "/p4/p4-hlir",
     path    => ["/bin", "/usr/bin"],
+    require => Exec['clonep4hlir'],
   }
 
 notice("Installing P4 dependency graph generator...")
@@ -102,12 +104,14 @@ notice("Installing P4 dependency graph generator...")
     cwd     => "/",
     path    => ["/bin", "/usr/bin"],
     creates => "/p4/p4c-graphs/setup.py",
+    require => Package[$base_packages],
   }
 
   exec { "installp4cgraph":
     command => "python setup.py install",
     cwd     => "/p4/p4c-graphs/",
     path    => ["/bin", "/usr/bin"],
+    require => Exec['clonep4cgraph'],
   }
 
   notice("Installing scapy vxlan...")
@@ -117,10 +121,12 @@ notice("Installing P4 dependency graph generator...")
     cwd     => "/",
     path    => ["/bin", "/usr/bin"],
     creates => "/p4/scapy-vxlan/setup.py",
+    require => Package[$base_packages],
   }
 
   exec { "installscapyvxlan":
     command => "python setup.py install",
     cwd     => "/p4/scapy-vxlan/",
     path    => ["/bin", "/usr/bin"],
+    require => Exec['clonep4cgraph'],
   }
