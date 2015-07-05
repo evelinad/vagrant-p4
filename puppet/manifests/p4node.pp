@@ -130,3 +130,13 @@ notice("Installing P4 dependency graph generator...")
     path    => ["/bin", "/usr/bin"],
     require => Exec['clonep4cgraph'],
   }
+
+    notice("Cloning p4factory...")
+
+    exec { "clonescapyvxlan":
+    command => "git clone https://github.com/p4lang/p4factory.git",
+    cwd     => "/p4",
+    path    => ["/bin", "/usr/bin"],
+    creates => "/p4/p4factory/install.sh",
+    require => Package[$base_packages],
+  }
