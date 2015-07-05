@@ -51,7 +51,6 @@
 
   package { $base_packages:
     ensure  => [installed, latest],
-    require => Exec['apt-get update'],
   }
 
   notice("Base dependencies successfully installed.")
