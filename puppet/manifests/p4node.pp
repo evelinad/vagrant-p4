@@ -117,7 +117,7 @@ notice("Installing P4 dependency graph generator...")
 
   notice("Installing scapy vxlan...")
 
-    exec { "clonescapyvxlan":
+  exec { "clonescapyvxlan":
     command => "git clone https://github.com/p4lang/scapy-vxlan.git",
     cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
@@ -134,10 +134,25 @@ notice("Installing P4 dependency graph generator...")
 
     notice("Cloning p4factory...")
 
-    exec { "clonep4factory":
+  exec { "clonep4factory":
     command => "git clone https://github.com/p4lang/p4factory.git",
     cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
     creates => "/p4/p4factory/install.sh",
     require => Package[$base_packages],
+  }
+
+  case $autorun {
+    'no'    exec { "cloneonly":
+              command => "git clone $softswitch",
+              cwd     => "/p4",
+              path    => ["/bin", "/usr/bin"],
+              require => Package[$base_packages],
+            }
+    'yes'   exec { "cloneandrun":
+              command => "git clone $softswitch",
+              cwd     => "/p4",
+              path    => ["/bin", "/usr/bin"],
+              require => Package[$base_packages],
+            }
   }

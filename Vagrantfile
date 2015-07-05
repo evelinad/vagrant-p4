@@ -29,6 +29,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         puppet.manifests_path = "puppet/manifests"
         puppet.manifest_file  = "p4node.pp"
         puppet.options = "--verbose --debug"
+        puppet.facter = {
+          "softswitch" => confs["softswitch"]
+          "autorun"    => confs["runonstartup"]
+        }
       end # puppet
     end # confs
 end # config
