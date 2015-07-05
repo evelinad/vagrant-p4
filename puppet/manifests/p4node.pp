@@ -84,7 +84,7 @@
 
   exec { "clonep4hlir":
     command => "git clone https://github.com/p4lang/p4-hlir.git",
-    cwd     => "/",
+    cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
     creates => "/p4/p4-hlir/setup.py",
     require => Package[$base_packages],
@@ -101,7 +101,7 @@ notice("Installing P4 dependency graph generator...")
 
   exec { "clonep4cgraph":
     command => "git clone https://github.com/p4lang/p4c-graphs.git",
-    cwd     => "/",
+    cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
     creates => "/p4/p4c-graphs/setup.py",
     require => Package[$base_packages],
@@ -118,7 +118,7 @@ notice("Installing P4 dependency graph generator...")
 
     exec { "clonescapyvxlan":
     command => "git clone https://github.com/p4lang/scapy-vxlan.git",
-    cwd     => "/",
+    cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
     creates => "/p4/scapy-vxlan/setup.py",
     require => Package[$base_packages],
