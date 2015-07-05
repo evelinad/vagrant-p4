@@ -46,7 +46,8 @@
     "redis-server",
     "thrift-compiler",
     "wireshark",
-    "git"
+    "git",
+    "vim"
   ]
 
   exec { "aptupdate":
