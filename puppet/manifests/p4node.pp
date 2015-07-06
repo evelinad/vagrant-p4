@@ -162,7 +162,7 @@ notice("Installing P4 dependency graph generator...")
   }
 
   exec { "clonesoftswitch":
-    command => git clone $softswitch,
+    command => "git clone $softswitch",
     cwd     => "/p4",
     path    => ["/bin", "/usr/bin"],
     require => Package[$base_packages],
