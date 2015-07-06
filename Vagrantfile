@@ -31,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         puppet.options = "--verbose --debug"
         puppet.facter = {
           "softswitch" => confs["softswitch"],
-          "autorun"    => confs["runonstartup"]
+          "autorun"    => confs["runonstartup"],
         }
       end # puppet
     end # confs
