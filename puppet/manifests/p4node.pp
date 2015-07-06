@@ -62,11 +62,50 @@
 
   notice("Base dependencies successfully installed.")
 
-  notice("Upgrading thift")
+  notice("Installing thift from source, this may take a while...")
 
-  exec { "upgrade_thrift":
-    command => "pip install --upgrade thrift",
+  exec { "download_thrift":
+    command => "wget http://mirror.csclub.uwaterloo.ca/apache/thrift/0.9.2/thrift-0.9.2.tar.gz",
     path    => ["/bin", "/usr/bin"],
+    cwd     => "/p4",
+    creates => "/p4/thrift-0.9.2.tar.gz",
+    require => Package[$base_packages],
+  }
+
+  exec { "extract_thrift":
+    command => "tar xf thrift-0.9.2.tar.gz",
+    path    => ["/bin", "/usr/bin"],
+    cwd     => "/p4",
+    creates => "/p4/thrift-0.9.2/README.md",
+    require => [Package[$base_packages],
+                Exec['download_thrift']],
+  }
+
+  exec { "configure_thrift":
+    command => "sh ./configure",
+    cwd     => "/p4/thrift-0.9.2/",
+    path    => ["/bin", "/usr/bin"],
+    require => [Package[$base_packages],
+                Exec['extract_thrift']],
+    timeout     => 0,
+  }
+
+  exec { "make_thrift":
+    command => "make",
+    cwd     => "/p4/thrift-0.9.2/",
+    path    => ["/bin", "/usr/bin"],
+    require => [Package[$base_packages],
+                Exec['configure_thrift']],
+    timeout     => 0,
+  }
+
+    exec { "make_install_thrift":
+    command => "make install",
+    cwd     => "/p4/thrift-0.9.2/",
+    path    => ["/bin", "/usr/bin"],
+    require => [Package[$base_packages],
+                Exec['make_thrift']],
+    timeout     => 0,
   }
 
   exec { "mkdirp4":
