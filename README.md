@@ -26,4 +26,22 @@ The project's goal is to encapsulate the p4 environment into a vagrant image. Th
 ```
 
 ## Usage
-Method 1: Place your repo link in the configs.yaml under "softswich".
+1. Place your repo link in the configs.yaml under "softswich".
+2. Bring up the vagrant image with (and wait a while):
+```
+vagrant up
+```
+3. Login into the running image:
+```
+vagrant ssh
+```
+4. If your project was successfully cloned, it should be under the /p4 directory and should contain a Makefile and main.c. For project structure, please refer to 
+https://github.com/p4lang/p4factory/tree/master/targets
+or
+https://github.com/sniggel/p4-softswitch
+5. cd into your project and input:
+```
+sudo make bm
+```
+6. (WIP) I'm still working out the details to run with mininet.
+
