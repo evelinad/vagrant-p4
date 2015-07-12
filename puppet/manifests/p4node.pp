@@ -99,12 +99,21 @@
     timeout     => 0,
   }
 
-    exec { "make_install_thrift":
+  exec { "make_install_thrift":
     command => "make install",
     cwd     => "/p4/thrift-0.9.2/",
     path    => ["/bin", "/usr/bin"],
     require => [Package[$base_packages],
                 Exec['make_thrift']],
+    timeout     => 0,
+  }
+
+  exec { "install_python_thrift_library":
+    command => "python setup.py install",
+    cwd     => "/p4/thrift-0.9.2/lib/py/",
+    path    => ["/bin", "/usr/bin"],
+    require => [Package[$base_packages],
+                Exec['make_install_thrift']],
     timeout     => 0,
   }
 
